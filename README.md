@@ -1,25 +1,29 @@
 # Serverless TrainTicket
 
-[TrainTicket](https://github.com/FudanSELab/train-ticket) 是复旦大学 CodeWisdom 团队按照工业界微服务实践所开发的一个开源微服务基准系统，是基于微服务架构的一个火车订票系统，包含了 41 种微服务。本项目使用开源函数计算框架 OpenFaaS、基于 Serverless 架构提取并改造开源微服务系统 TrainTicket 中高并发的订票业务，部署并运行在 Kubernetes 集群中。主要使用的开发技术框架如下：
+[TrainTicket](https://github.com/FudanSELab/train-ticket) [TrainTicket](https://github.com/FudanSELab/train-ticket) is a open-sourced microservice benchmarking system developed by CodeWisdom research group from Fudan University based on industrial microservice practice. It is a train ticket ordering system based on microservice architecture, which encompasses 41 different microservices. This project adopts open functions framework, [OpenFaaS](https://github.com/openfaas/faas), based on serverless architecture, extracts and transforms the ticket bokking module with high concurrency in the open-sourced microservice system, TrainTicket, which is deployed in Kubernetes clusters. 
+
+The main adopted development frameworks include:
 
 - Java - OpenFaaS、OkHttp、*Spring Boot
 - DB - MongoDB、MongoBD JDBC
 
 
+## Quick Start
 
-## 快速开始
+This project, based on Kubernetes clusters, adopts open functions framework, OpenFaas, to deploy our Serverless TrainTicket system.
 
-本项目基于 Kubernetes 集群并使用开源函数计算框架 OpenFaaS 来部署我们的 Serverless TrainTicket 系统。
+### Prerequisites
 
-### 先决条件
+Because this project uses Kubernetes to build OpenFaas Serverless platform, you need at least 2 servers to build Kubernetes clusters. [Tutorials for Cluster Deployment (in Chinese)](https://blog.csdn.net/lbw520/article/details/96446272)
 
-由于本项目选择Kubernetes 来构建 OpenFaaS 的 Serverless 平台，因此你需要至少两台服务器以构建 Kubernetes 集群。[集群部署教程](https://blog.csdn.net/lbw520/article/details/96446272)
 
-#### 服务器系统要求
+#### Server System Requirements
 
-- CPU和内存：双核，4GB以上。
-- 操作系统：基于x86_64的各种Linux发行版，包括CentOS，Federa，Ubuntu等，但内核要求在3.10及以上。
-- 容器运行时：一般情况下使用Docker作为容器运行时。
+- CPU and RAM: duel-core, 4GB+
+- OS: Various Linux on x86_64, including CentOS, Federa, Ubuntu, etc., but kernal should be 3.10 or above.
+- Container： Normally use Docker as container
+
+(Translation on going ... )
 
 ### 1. 登录Docker Hub
 
