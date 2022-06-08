@@ -25,30 +25,30 @@ Because this project uses Kubernetes to build OpenFaas Serverless platform, you 
 
 (Translation on going ... )
 
-### 1. 登录Docker Hub
+### 1. Login Docker Hub
 
 ```shell
 docker login -u <username> -p <password>
 ```
 
-### 2. 安装NFS
+### 2. Install NFS
 
-详细步骤参考[该链接](https://qizhanming.com/blog/2018/08/08/how-to-install-nfs-on-centos-7)，本项目中master节点为nfs服务端、所有node节点为nfs客户端，挂载路径为`/var/nfs/data/`。
+For detailed tutorial, turn to [Link]( https://qizhanming.com/blog/2018/08/08/how-to-install-nfs-on-centos-7 )，the "master" of this project is nfs server with all the nodes being nfs clients. Mount directory `/var/nfs/data/`
 
-### 2. 安装OpenFaaS
+### 2. Install OpenFaaS
 
-详细步骤参考[OpenFaaS官方文档](https://docs.openfaas.com/deployment/kubernetes/)。官方提供了三种安装OpenFaaS的方法，建议使用 helm（arkade不够成熟，yaml文件支持定制自定义安装方案但过于繁琐）。
+Check details from [OpenFaaS Official Document](https://docs.openfaas.com/deployment/kubernetes/). 3 installation methods are provided. We recommend to use helm (arkade is not mature enough; though yaml files support customized installation, it is over-complicated). 
 
-### 3. 克隆项目仓库
+### 3. Clone Repository
 
-```sh
+```
 git clone https://gitee.com/akasakaisami/train-ticket-serverless.git
 cd Serverless_trainticket/
 ```
 
-### 4. 配置部署需要的全局变量
+### 4. Config and Deploy Global Variables
 
-master节点的shell中输入
+use the shell in master node
 
 ```shell
 MASTER_ID=<master_ip_address>
@@ -58,10 +58,10 @@ NODE03_ID=<node03_ip_address>
 DOCKER_USERNAME=<docker_username>
 ```
 
-### 5. 执行数据库自动部署脚本文件
+### 5. Execute Database Auto-deploy Script File
 
 ```shell
-# 部署数据库
+# deploy database
 sed -i s/master_ip_address/$MASTER_ID/ part01_DataBaseDeployment.sh
 sed -i s/docker_username/$DOCKER_USERNAME/ part01_DataBaseDeployment.sh
 
@@ -69,26 +69,28 @@ chmod u+x part01_DataBaseDeployment.sh
 ./part01_DataBaseDeployment.sh
 ```
 
-运行 `kubectl get pods`和`kubectl get pods -n openfaas-fn` 等待所有数据库初始化函数 Pods 都是 Ready 状态，再运行以下命令
+Run `kubectl get pods` and `kubectl get pods -n openfaas-fn` 
+
+Wait until all the database initialization function Pods are `Ready` and execute the following.
 
 ```shell
-# 数据内容初始化
+# Data content initialization
 sed -i s/10.141.212.140/$MASTER_ID/ part01_DataInitiation.sh
 
 chmod u+x part01_DataInitiation.sh
 ./part01_DataInitiation.sh
 ```
 
-### 6. 执行后端自动部署脚本文件
+### 6. Execute Backend Auto-deploy Script File
 
 ```shell
-# BaaS服务部署
+# BaaS Service Deployment
 chmod u+x part02_BaaSServices.sh
 ./part02_BaaSServices.sh
 ```
 
 ```shell
-# FaaS函数部署
+# FaaS Function Deployment
 sed -i s/master_ip_address/$MASTER_ID/ part02_FaaSFunctions.sh
 sed -i s/docker_username/$DOCKER_USERNAME/ part02_FaaSFunctions.sh
 
@@ -96,16 +98,18 @@ chmod u+x part02_FaaSFunctions.sh
 ./part02_FaaSFunctions.sh
 ```
 
-### 7. 执行前端自动部署脚本文件
+### 7. Execute Frontend Auto-deploy Script File
 
 ```shell
-# 前端部署
+# Frontend deployment
 chmod u+x part03_Frontend.sh
 ./part03_Frontend.sh
 ```
 
-### 8. 运行 `kubectl get pods --all-namespaces` 等待所有 Pods 都是 Ready 状态
+### 8. Run `kubectl get pods --all-namespaces` 
 
-### 9. 访问 Serverless TrainTicket 主页 http://[Node-IP]:32677
+Wait until all Pods are `Ready`.
+
+### 9. Visit Serverless TrainTicket Homepage at http://[Node-IP]:32677
 
 
